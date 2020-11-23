@@ -20,6 +20,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 		$DB = new PDO(sprintf("mysql:host=%s;dbname=%s", $config['host'], $config['name']), $config['user'], $config['password']);
 
+		$DB->exec('SET NAMES utf8mb4;');
+
+
 		$table = $config['name'];
 		$query = $DB->prepare('SELECT table_name, table_comment FROM INFORMATION_SCHEMA.TABLES WHERE table_schema = :table');
 		$query->bindParam(':table', $table, PDO::PARAM_STR);
@@ -258,10 +261,10 @@ function markdown_result_template($markdown) {
 <html>
 <head>
 	<title>MySQL Markdown</title>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
-	<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="bootstrap.min.css">
+	<link rel="stylesheet" href="bootstrap-theme.min.css">
+	<script src="jquery-1.11.1.min.js"></script>
+	<script src="bootstrap.min.js"></script>
 	<script>
 		$(document).ready(function() {
 			$('#tabs a').click(function(e) {
@@ -303,7 +306,7 @@ function markdown_result_template($markdown) {
 					</div>
 					<div class="panel-body">
 
-						<a href="markdown.php" class="btn btn-default">Back</a>
+						<a href="javascript:history.back();" class="btn btn-default">Back</a>
 						<a href="#" onclick="location.reload(true)" class="btn btn-default">Regenerate</a>
 						<?php if($config['comment_row']) : ?>
 							<br><br>
@@ -342,10 +345,10 @@ function markdown_form_template() {
 <html>
 <head>
 	<title>MySQL Markdown</title>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
-	<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="bootstrap.min.css">
+	<link rel="stylesheet" href="bootstrap-theme.min.css">
+	<script src="jquery-1.11.1.min.js"></script>
+	<script src="bootstrap.min.js"></script>
 </head>
 <body>
 	<div class="container" style="margin-top:40px">
